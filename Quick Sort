@@ -1,34 +1,22 @@
-int partition(int arr[],int s, int e){
-    int count =0;
-    int pivot= arr[s];
-    for(int i =s+1;i<=e;i++){
-        if(arr[i]<=pivot){
-            count++;
-        }
-    }
-    int pivotindex= s+count;
-    swap(arr[pivotindex],arr[s]);
-    int left= s;
-    int right=e;
-    while(left<pivotindex && right>pivotindex){
-        while(arr[left]<=pivot){
-            left++;
-        }
-        while(arr[right]>pivot){
-            right--;
-        }
-        if(left<pivotindex && right>pivotindex){
-        swap(arr[left++],arr[right--]);}
-    }
-    return pivotindex;
+#include<bits/stdc++.h>
+using namespace std;
+void quickSort(vector<int>& arr, int low, int high){
+    if(low>= high) return;
+  int pivotIndex = high;
+int l = low - 1;
 
+for(int i = low; i < high; i++){
+    if(arr[i] <= arr[pivotIndex])
+        swap(arr[i], arr[++l]);
+}
+swap(arr[pivotIndex], arr[l+1]);
+    quickSort(arr,low,l);
+    quickSort(arr,l+2,high);
+}
 
-}
-void quicksort(int arr[], int s, int e){
-    if(s>=e){
-        return ;
-    }
-    int p = partition(arr,s,e);
-    quicksort(arr,s,p);
-    quicksort(arr,p+1,e);
-}
+int main(){
+    // vector<int> arr= {2,3,1,0,23,-12,-12,-34,-23};
+    vector<int> arr= {2,3,1,0,-23,334,23,21,343,43,23,32};
+    quickSort(arr,0,arr.size()-1);
+    for(auto x:arr) cout<<x<<" ";
+} 
